@@ -1,15 +1,14 @@
 $(document).ready(function()
 {
-	var puzzleArea = $("puzzlearea");
-	var puzzlePieces = puzzleArea.children();
+	var puzzleArea = $("#puzzlearea div");
 	//puzzleArea.style.backgroundImage = 'background.jpg';
 
-	console.log(puzzlePieces.length);
+	console.log(puzzleArea.length);
 	
-	for (var i = 0; i < puzzlePieces.length; i++)
+	for (var i = 0; i < puzzleArea.length; i++)
 	{
 		count = 1;
-		puzzlePieces.style.backgroundImage("url('background.jpg')");
+		puzzlePieces[i].style.backgroundImage("url('background.jpg')");
 		puzzlePieces[i].addClass("puzzlepiece");
 		puzzlepiece.id = count;
 		count++;
