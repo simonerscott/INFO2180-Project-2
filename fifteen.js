@@ -1,22 +1,25 @@
 $(document).ready(function()
 {
-	var puzzleArea = $("#puzzlearea div");
-	//puzzleArea.style.backgroundImage = 'background.jpg';
+	var puzzlePieces = $("#puzzlearea div");
+	var counter = 0
 
-	console.log(puzzleArea.length);
 	
-	for (var i = 0; i < puzzleArea.length; i++)
+	//for loop to apply background image
+	for (var i = 0; i < puzzlePieces.length; i++)
 	{
-		count = 1;
-		puzzlePieces[i].style.backgroundImage("url('background.jpg')");
-		puzzlePieces[i].addClass("puzzlepiece");
-		puzzlepiece.id = count;
-		count++;
+		puzzlePieces[i].style.backgroundImage = "url('background.jpg')";
+		puzzlePieces[i].className = "puzzlepiece";
+		puzzlePieces.id = counter;
+		setBackground(i, puzzlePieces);
+		counter++;
 	}
 
 
-	 function setBackground()
-	 {
-	 	
-	 }
+	// Function created to place puzzle pieces in the correct order
+	function setBackground(index, array)
+	{
+		puzzlePieces[i].style.left = (i % 4 * 100) +'px';
+		puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px';
+		puzzlePieces[i].style.backgroundPosition = '-' + puzzlePieces[i].style.left + ' ' + '-' + puzzlePieces[i].style.top;
+	}
 });
