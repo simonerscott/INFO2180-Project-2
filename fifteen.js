@@ -44,24 +44,39 @@ $(document).ready(function()
 	}
 
 	
+	
 	//
 	puzzlePieces.click(function()
-	{
-		
+	{			
 		x =  $(this).css("left");
 		y =  $(this).css("top");
-		$(this).css("left", blankX);
-		$(this).css("top", blankY);
+		$(this).css("left", blankX); // setting the offset().left to equal empty space x-coordinates
+		$(this).css("top", blankY); // setting the offset().top to equal empty space y-coordinates
 		blankX = x;
 		blankY = y;
-		puzzlePieces.hover(validMove());
 		//puzzlePieces.hover = validMove(); //idk if being called correctly
-		console.log(nList);
+		//console.log(nList);
 	});
-
+	
 
 	
 
+	puzzlePieces.mouseover(validMove());
+	/*puzzlePieces.forEach(function(item)
+	{
+		item.mouseover(function)
+		{
+			if (validMove() == true)
+			{
+				$(this).addClassName("movablepiece");
+			}
+			else
+			{
+				$(this).removeClassName("movablepiece");
+			}
+		});
+	});
+*/
 
 	function validMove()
 	{
@@ -72,8 +87,15 @@ $(document).ready(function()
 		var leftNeighbor;
 		var rightNeighbor;
 		var neighborList;
+
+		/*var x =  $((this).css("left"));
+		var y =  $(this).css("top");
+		x = parseInt(x);
+		y = parseInt(y);*/
+		//console.log("X: " + x + " Y: " + y);
 		blankY = parseInt(blankY);
 		blankX = parseInt(blankX);
+
 
 
 		//Empty the list before other neighbor coordinates are added
@@ -118,18 +140,22 @@ $(document).ready(function()
 		}
 
 
+		var found = false;
 		for (var key in nList)
 		{
-			var neighbor = nList[key];
-			if (neighbor[0] == blankX && neighbor[1] == blankY)
+			var neighbor = nList[key];			
+			if (neighbor[0] == x && neighbor[1] == y)
 			{
-				console.log("X Value : " + neighbor[0] + " blankX Value:" + blankX);
-				console.log("Y Value : " + neighbor[1] + " blankY Value:" + blankY);
-
-
+				console.log("X Value : " + neighbor[0] + " blankX Value:" + x);
+				console.log("Y Value : " + neighbor[1] + " blankY Value:" + y);
+				found = true;
+				return found;
 			}
-			//console.log(neighbor[0]);
+			console.log("X Value : " + neighbor[0] + " blankX Value:");
+			console.log("Y Value : " + neighbor[1] + " blankY Value:");	
 		}
+
+		console.log(nList);
 
 	}
 
