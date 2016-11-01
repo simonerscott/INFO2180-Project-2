@@ -9,15 +9,19 @@ $(document).ready(function()
 	// var list = [];
 	var nList = new Object();
 	var found = false;
+	
 
 	
 	
 	function selectPicture()
 	{
-		var button = $("#control");
+		//var button = $("#control");
 		var pictureChoice = prompt("");
 	}
 
+
+
+	
 	
 
 	//for loop to apply background image
@@ -59,23 +63,39 @@ $(document).ready(function()
 	//
 	puzzlePieces.click(function()
 	{			
-		var x =  $(this).css("left");
-		var y =  $(this).css("top");
-		$(this).css("left", blankX); // setting the offset().left to equal empty space x-coordinates
-		$(this).css("top", blankY); // setting the offset().top to equal empty space y-coordinates
-		blankX = x;
-		blankY = y;
-		//puzzlePieces.hover = validMove(); //idk if being called correctly
+		if (validMove())
+		{
+			var x =  $(this).css("left");
+			var y =  $(this).css("top");
+			$(this).css("left", blankX); // setting the offset().left to equal empty space x-coordinates
+			$(this).css("top", blankY); // setting the offset().top to equal empty space y-coordinates
+			blankX = x;
+			blankY = y;
+
+		}
+		
+	});
+
+	
+	puzzlePieces.mouseover(function()
+	{
+		console.log($(this));
+		if (validMove())
+		{
+			$(this).addClass("movablepiece");
+		}
+		else
+		{
+			$(this).removeClass("movablepiece");
+		}
+
 	});
 	
 
-	
-
-	puzzlePieces.mouseover(validMove);
+	//puzzlePieces.mouseover(validMove);
 
 	function validMove()
 	{
-
 		var lessThanZero = 0;
 		var greaterThan300 = 300;
 		var topNeighbor;
