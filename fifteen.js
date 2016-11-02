@@ -13,8 +13,8 @@ $(document).ready(function()
 
 	
 
-	//button.click(selectPicture);
-	selectPicture();
+	
+	//selectPicture();
 	
 	function selectPicture()
 	{
