@@ -7,14 +7,14 @@ $(document).ready(function()
 	var tempX = "";
 	var tempY = "";
 	// var list = [];
-	var nList = new Object();
+	var nList = new Object(); //a dictionary of the empty space's neighbor
 	var found = false;
 	var button = $("#control input[type=button]"); // for Shuffle button
 
 	
 
 	
-	selectPicture();
+	selectPicture(); // Calling the selectPicture() function
 	
 	function selectPicture()
 	{
@@ -71,7 +71,7 @@ $(document).ready(function()
 			// list[i] = puzzlePieces.id; //Uncomment so that shuffle can take place
 			 counter++;
 		}
-		
+
 		$(puzzlePieces[15]).attr("id", 0);
 
 		//list[15] = 0; //Uncomment so that shuffle can take place
@@ -98,9 +98,9 @@ $(document).ready(function()
 
 	
 	
-	//
-	puzzlePieces.click(function()
-	{	
+	//To move puzzle piece to empty space
+	function movePiece()
+	{
 		if (validMove)
 		{
 			var x =  $(this).css("left");
@@ -110,10 +110,11 @@ $(document).ready(function()
 			blankX = x;
 			blankY = y;
 		}
-		
-	});
+	}
 
-	
+	puzzlePieces.click(movePiece);
+
+		
 	/*puzzlePieces.mouseover(function()
 	{
 		console.log($(this));
