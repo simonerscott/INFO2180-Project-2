@@ -20,7 +20,7 @@ $(document).ready(function()
 	{
 		//var button = $("#control");
 		var pictureChoice = prompt("Please Enter a Picture Choice by Typing a Letter"+'\n' + "A. Popeye" + '\n' + "B. Tinkerbell" + '\n' 
-        + "C. Tom and Jerry"+ '\n' + "D. Tweetybird"+ '\n');
+        + "C. Tom and Jerry"+ '\n' + "D. Tweety Bird"+ '\n');
 
 		pictureChoice = pictureChoice.toUpperCase();
 
@@ -42,7 +42,7 @@ $(document).ready(function()
         		break;
 
         	case "D":
-        		var d = "url('tweetybird.jpg')";
+        		var d = "url('tweetybird.png')";
         		backgroundImage(d);
         		break;
 
