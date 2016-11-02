@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-	var puzzlePieces = $("#puzzlearea div");
+	puzzlePieces = $("#puzzlearea div");
 	var counter = 1;
 	var blankX = "300px"; //Left Coordinates for empty space
 	var blankY = "300px"; //Right Coordinates for empty space
@@ -9,41 +9,80 @@ $(document).ready(function()
 	// var list = [];
 	var nList = new Object();
 	var found = false;
-	
+	var button = $("#control input[type=button]"); // for Shuffle button
 
 	
+
+	//button.click(selectPicture);
+	selectPicture();
 	
 	function selectPicture()
 	{
 		//var button = $("#control");
-		var pictureChoice = prompt("");
-	}
+		var pictureChoice = prompt("Please Enter a Picture Choice by Typing a Letter"+'\n' + "A. Popeye" + '\n' + "B. Tinkerbell" + '\n' 
+        + "C. Tom and Jerry"+ '\n' + "D. Tweetybird"+ '\n');
 
+		pictureChoice = pictureChoice.toUpperCase();
+
+        switch (pictureChoice)
+        {
+        	case "A":
+        		var a = "url('popeye.png')";
+        		backgroundImage(a);
+        		break;
+
+        	case "B":
+        		var b = "url('tinkerbell.jpg')";
+        		backgroundImage(b);
+        		break;
+
+        	case "C":
+        		var c = "url('tom-and-jerry.png')";
+        		backgroundImage(c);
+        		break;
+
+        	case "D":
+        		var d = "url('tweetybird.jpg')";
+        		backgroundImage(d);
+        		break;
+
+        	default:
+        		console.log("Please Try Again");
+        		break;
+        }
+	}
 
 
 	
 	
 
 	//for loop to apply background image
-	for (var i = 0; i < puzzlePieces.length; i++)
+	function backgroundImage(img)
 	{
-		puzzlePieces[i].style.backgroundImage = "url('background.jpg')";
-		puzzlePieces[i].className = "puzzlepiece";
-		puzzlePieces.id = counter;
-		$(puzzlePieces[i]).attr("id",counter);
-		setBackground(i, puzzlePieces);
-		// list[i] = puzzlePieces.id; 
-		 counter++;
+		sampleImg = "url('background.jpg')";
+
+		for (var i = 0; i < puzzlePieces.length; i++)
+		{
+			
+			puzzlePieces[i].style.backgroundImage = img;
+			puzzlePieces[i].className = "puzzlepiece";
+			puzzlePieces.id = counter;
+			$(puzzlePieces[i]).attr("id",counter);
+			setBackground(i, puzzlePieces);
+			// list[i] = puzzlePieces.id; 
+			 counter++;
+		}
+		$(puzzlePieces[15]).attr("id", 0);
+		//list[15] = 0;
 	}
-	$(puzzlePieces[15]).attr("id", 0);
-	//list[15] = 0;
+	
 	
 	 
 
 			
 
 	// Function created to place puzzle pieces in the correct order
-	function setBackground(index, array)
+	function setBackground(i, array)
 	{		
 		puzzlePieces[i].style.left = (i % 4 * 100) +'px';
 		puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px'; // recalculate y coordinate it is assuming the value the y 
@@ -62,8 +101,8 @@ $(document).ready(function()
 	
 	//
 	puzzlePieces.click(function()
-	{			
-		if (validMove())
+	{	
+		if (validMove)
 		{
 			var x =  $(this).css("left");
 			var y =  $(this).css("top");
@@ -71,13 +110,12 @@ $(document).ready(function()
 			$(this).css("top", blankY); // setting the offset().top to equal empty space y-coordinates
 			blankX = x;
 			blankY = y;
-
 		}
 		
 	});
 
 	
-	puzzlePieces.mouseover(function()
+	/*puzzlePieces.mouseover(function()
 	{
 		console.log($(this));
 		if (validMove())
@@ -89,10 +127,10 @@ $(document).ready(function()
 			$(this).removeClass("movablepiece");
 		}
 
-	});
+	});*/
 	
 
-	//puzzlePieces.mouseover(validMove);
+	puzzlePieces.mouseover(validMove);
 
 	function validMove()
 	{
@@ -117,7 +155,6 @@ $(document).ready(function()
 
 
 		topNeighbor = blankY - 100;
-		//not calulating correct value
 		if (topNeighbor >= lessThanZero)
 		{
 			nList["top"] = [blankX, topNeighbor];
@@ -133,7 +170,7 @@ $(document).ready(function()
 			//nList.push(bottonNeighbor);
 		}
 
-		leftNeighbor = parseInt(blankX) - 100;
+		leftNeighbor = blankX - 100;
 		if (leftNeighbor >= lessThanZero)
 		{
 			nList["left"] = [leftNeighbor, blankY]
@@ -155,20 +192,11 @@ $(document).ready(function()
 			var neighbor = nList[key];			
 			if (neighbor[0] == x && neighbor[1] == y)
 			{
-				/*console.log("X Value : " + neighbor[0] + " blankX Value:" + x);
-				console.log("Y Value : " + neighbor[1] + " blankY Value:" + y);*/
 				console.log(found);
 				found = true;
 				return found;
 			}
-			/*console.log(nList);
-			console.log("X Value : " + neighbor[0]);
-			console.log("Y Value : " + neighbor[1]);*/
-
 		}
-		
-
-
 	}
 	
 
