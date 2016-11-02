@@ -14,7 +14,7 @@ $(document).ready(function()
 	
 
 	
-	//selectPicture();
+	selectPicture();
 	
 	function selectPicture()
 	{
@@ -59,7 +59,6 @@ $(document).ready(function()
 	//for loop to apply background image
 	function backgroundImage(img)
 	{
-		sampleImg = "url('background.jpg')";
 
 		for (var i = 0; i < puzzlePieces.length; i++)
 		{
@@ -67,25 +66,25 @@ $(document).ready(function()
 			puzzlePieces[i].style.backgroundImage = img;
 			puzzlePieces[i].className = "puzzlepiece";
 			puzzlePieces.id = counter;
-			$(puzzlePieces[i]).attr("id",counter);
-			setBackground(i, puzzlePieces);
-			// list[i] = puzzlePieces.id; 
+			$(puzzlePieces[i]).attr("id", counter);
+			setBackground(i);
+			// list[i] = puzzlePieces.id; //Uncomment so that shuffle can take place
 			 counter++;
 		}
+		
 		$(puzzlePieces[15]).attr("id", 0);
-		//list[15] = 0;
+
+		//list[15] = 0; //Uncomment so that shuffle can take place
 	}
 	
-	
-	 
 
 			
 
 	// Function created to place puzzle pieces in the correct order
-	function setBackground(i, array)
+	function setBackground(i)
 	{		
 		puzzlePieces[i].style.left = (i % 4 * 100) +'px';
-		puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px'; // recalculate y coordinate it is assuming the value the y 
+		puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px'; 
 		puzzlePieces[i].style.backgroundPosition = '-' + puzzlePieces[i].style.left + ' ' + '-' + puzzlePieces[i].style.top;
     }
 
