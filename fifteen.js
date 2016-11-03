@@ -102,7 +102,7 @@ $(document).ready(function()
 	function movePiece()
 	{
 		
-		if ($(this).hasClass("puzzlepiece movablepiece") && validMove)//Puzzle piece should only move when it is a valid move
+		if ($(this).hasClass("puzzlepiece movablepiece"))//Puzzle piece should only move when it is a valid move
 		{
 			var x =  $(this).css("left");
 			var y =  $(this).css("top");
@@ -110,6 +110,10 @@ $(document).ready(function()
 			$(this).css("top", blankY); // setting the offset().top to equal empty space y-coordinates
 			blankX = x;
 			blankY = y;
+		}
+		else
+		{
+			$(this).removeClass("movablepiece");
 		}
 
 	}
@@ -121,29 +125,19 @@ $(document).ready(function()
 	
 
 
-	// Not running correctly not adding class when validMove is true
-	//Want apply movablepiece class to the valid puzzle pieces 	
-	
-	puzzlePieces.mouseover(function() //Change puzzlePiece
+	//Apply movablepiece class to the valid puzzle pieces 	
+	puzzlePieces.mouseover(function() 
 	{	
 		var ID = $(this).attr("id");
 		ID = parseInt(ID);
-		var tester = ["15", "12", "15"];
-		console.log(mList);
-		//console.log("Tester List:" + tester)
 		index = $.inArray(ID, mList);
+		$(".movablepiece").removeClass("movablepiece");
 		if  (index !== -1)
 		{
-			/*console.log("I love Johnny");
-			console.log(ID);*/
 			$(this).addClass("movablepiece");
-
 		}				
 	});
-
-
-
-
+	
 	
 
 	puzzlePieces.mouseover(validMove);
@@ -202,15 +196,11 @@ $(document).ready(function()
 			if ((neighbor[0] == x) && (neighbor[1] == y))
 			{
 				found = true;
-				//return true;
-				//console.log(found);
+				return found;
 			}
 
-			//console.log(neighbor[0],neighbor[1]);
 			findID(neighbor[0],neighbor[1]);
 		}
-
-		console.log(mList);
 	}
 
 
@@ -223,8 +213,6 @@ $(document).ready(function()
 			var iY = $(puzzlePieces[i]).css("top");
 			iX = parseInt(iX);
 			iY = parseInt(iY);
-			/*console.log("iX: " + iX);
-			console.log("iY: " + iY);*/
 			if ((iX === x) && (iY === y))
 			{
 				var ID = $(puzzlePieces[i]).attr("id");
@@ -232,33 +220,6 @@ $(document).ready(function()
 				mList.push(ID);
 			}
 		}
-
-		//console.log(ID);
-	}
-
-
-
-
-
-
-	function locateID()
-	{
-
-		for (var i = 0; i < puzzlePieces.length; i++)
-		{
-			
-			puzzlePieces[i].style.backgroundImage = img;
-			puzzlePieces[i].className = "puzzlepiece";
-			puzzlePieces.id = counter;
-			$(puzzlePieces[i]).attr("id", counter);
-			setBackground(i);
-			list[i] = puzzlePieces.id; //Uncomment so that shuffle can take place
-			counter++;
-		}
-
-		$(puzzlePieces[15]).attr("id", 0);
-
-		list[15] = 0; //Uncomment so that shuffle can take place
 	}
 
 
