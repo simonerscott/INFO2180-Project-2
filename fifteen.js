@@ -120,10 +120,10 @@ $(document).ready(function()
 
 	
 
-	puzzlePieces.click(movePiece); // Calling the movePiece function on the puzzle pieces
+	//Calling the movePiece function on the puzzle pieces
+	puzzlePieces.click(movePiece);
 
 	
-
 
 	//Apply movablepiece class to the valid puzzle pieces 	
 	puzzlePieces.mouseover(function() 
@@ -138,10 +138,15 @@ $(document).ready(function()
 		}				
 	});
 	
-	
 
-	puzzlePieces.mouseover(validMove);
 
+	//Call the validMove on puzzlePieces
+	puzzlePieces.mouseover(validMove); 
+
+
+	/*Function that determines if a move is valid by keeping track of the 
+	  empty space neighbors (ie storing all the values in nList) and returns 
+	  true if the puzzle piece that is being hovered over is in nList */
 	function validMove()
 	{
 		var lessThanZero = 0;
@@ -189,7 +194,8 @@ $(document).ready(function()
 		}
 
 
-		
+		/*Going to through the empty space neighbor list (nList) and 
+		   comparing it's x & y with the coordinates the mouse is over*/
 		for (var key in nList)
 		{
 			var neighbor = nList[key];			
@@ -199,12 +205,16 @@ $(document).ready(function()
 				return found;
 			}
 
-			findID(neighbor[0],neighbor[1]);
+			/*Calling the findID to return all the Ids of the 
+			  empty space neighbors*/
+			findID(neighbor[0], neighbor[1]);
 		}
 	}
 
 
 
+	/* This function definition takes the x & y coordinates,finds
+	    the cooresponding ID then pushes the ID in the mList array*/
 	function findID(x, y)
 	{
 		for (var i = 0; i < puzzlePieces.length; i++)
