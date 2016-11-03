@@ -1,3 +1,5 @@
+//The Extra Feature that was added to the game was Multiple Background
+
 $(document).ready(function()
 {
 	puzzlePieces = $("#puzzlearea div");
@@ -6,14 +8,14 @@ $(document).ready(function()
 	var blankY = "300px"; //Right Coordinates for empty space
 	var tempX = "";
 	var tempY = "";
-	// var list = [];
+	var list = [];
 	var nList = new Object(); //a dictionary of the empty space's neighbor
+	var mList = [];
 	var found = false;
 	var button = $("#control input[type=button]"); // for Shuffle button
 
 	
-
-	
+		
 	selectPicture(); // Calling the selectPicture() function
 	
 	function selectPicture()
@@ -51,8 +53,6 @@ $(document).ready(function()
         		break;
         }
 	}
-
-
 	
 	
 
@@ -68,18 +68,17 @@ $(document).ready(function()
 			puzzlePieces.id = counter;
 			$(puzzlePieces[i]).attr("id", counter);
 			setBackground(i);
-			// list[i] = puzzlePieces.id; //Uncomment so that shuffle can take place
-			 counter++;
+			list[i] = puzzlePieces.id; //Uncomment so that shuffle can take place
+			counter++;
 		}
 
 		$(puzzlePieces[15]).attr("id", 0);
 
-		//list[15] = 0; //Uncomment so that shuffle can take place
+		list[15] = 0; //Uncomment so that shuffle can take place
 	}
 	
 
 			
-
 	// Function created to place puzzle pieces in the correct order
 	function setBackground(i)
 	{		
@@ -87,21 +86,22 @@ $(document).ready(function()
 		puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px'; 
 		puzzlePieces[i].style.backgroundPosition = '-' + puzzlePieces[i].style.left + ' ' + '-' + puzzlePieces[i].style.top;
     }
-
     
 	
 
+	//Shuffle the puzzles when the suffle button is clicked
 	function shuffle()
 	{
 
 	}
 
-	
+
+
 	
 	//To move puzzle piece to empty space
 	function movePiece()
 	{
-		if (validMove)
+		if ($(this).hasClass("puzzlepiece movablepiece") && validMove)//Puzzle piece should only move when it is a valid move
 		{
 			var x =  $(this).css("left");
 			var y =  $(this).css("top");
@@ -110,24 +110,32 @@ $(document).ready(function()
 			blankX = x;
 			blankY = y;
 		}
+
 	}
 
-	puzzlePieces.click(movePiece);
+	
 
-		
-	/*puzzlePieces.mouseover(function()
-	{
-		console.log($(this));
-		if (validMove())
+	puzzlePieces.click(movePiece); // Calling the movePiece function on the puzzle pieces
+
+	
+
+	// Not running correctly not adding class when validMove is true
+	//Want apply movablepiece class to the valid puzzle pieces 	
+	puzzlePieces.mouseover(function() //Change puzzlePiece
+	{	
+		var ID = $(this).attr("id");
+		var tester = ["15", "12", "15"];
+		index = $.inArray(ID,tester);
+		if  (index !== -1)
 		{
+			console.log("I love Johnny");
+			console.log(ID);
 			$(this).addClass("movablepiece");
-		}
-		else
-		{
-			$(this).removeClass("movablepiece");
-		}
 
-	});*/
+		}
+				
+	});
+
 	
 
 	puzzlePieces.mouseover(validMove);
@@ -158,48 +166,40 @@ $(document).ready(function()
 		if (topNeighbor >= lessThanZero)
 		{
 			nList["top"] = [blankX, topNeighbor];
-			//nList.push(blankX);
-			//nList.push(topNeighbor);
 		}
 
 		bottonNeighbor = blankY + 100;
 		if (bottonNeighbor <= greaterThan300)
 		{	
-			nList["bottom"] = [blankX, bottonNeighbor]
-			//nList.push(blankX);
-			//nList.push(bottonNeighbor);
+			nList["bottom"] = [blankX, bottonNeighbor];
 		}
 
 		leftNeighbor = blankX - 100;
 		if (leftNeighbor >= lessThanZero)
 		{
-			nList["left"] = [leftNeighbor, blankY]
-			//nList.push(leftNeighbor);
-			//nList.push(blankY);
+			nList["left"] = [leftNeighbor, blankY];
 		}
 
 		rightNeighbor = blankX + 100;
 		if (rightNeighbor <= greaterThan300)
 		{
-			nList["right"] = [rightNeighbor, blankY]
-			//nList.push(rightNeighbor);
-			//nList.push(blankY);
+			nList["right"] = [rightNeighbor, blankY];
 		}
 
 
+		
 		for (var key in nList)
 		{
 			var neighbor = nList[key];			
-			if (neighbor[0] == x && neighbor[1] == y)
+			if ((neighbor[0] == x) && (neighbor[1] == y))
 			{
-				console.log(found);
 				found = true;
-				return found;
+				//return true;
+				//console.log(found);
 			}
 		}
-	}
-	
-
 		
+	}
+
 
 });
