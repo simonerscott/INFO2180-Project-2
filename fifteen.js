@@ -10,7 +10,7 @@ $(document).ready(function()
 	var tempY = "";
 	var list = [];
 	var nList = new Object(); //a dictionary of the empty space's neighbor
-	var mList = [];
+	var mList = new Array ();
 	var found = false;
 	var button = $("#control input[type=button]"); // for Shuffle button
 
@@ -101,6 +101,7 @@ $(document).ready(function()
 	//To move puzzle piece to empty space
 	function movePiece()
 	{
+		
 		if ($(this).hasClass("puzzlepiece movablepiece") && validMove)//Puzzle piece should only move when it is a valid move
 		{
 			var x =  $(this).css("left");
@@ -119,22 +120,29 @@ $(document).ready(function()
 
 	
 
+
 	// Not running correctly not adding class when validMove is true
 	//Want apply movablepiece class to the valid puzzle pieces 	
+	
 	puzzlePieces.mouseover(function() //Change puzzlePiece
 	{	
 		var ID = $(this).attr("id");
+		ID = parseInt(ID);
 		var tester = ["15", "12", "15"];
-		index = $.inArray(ID,tester);
+		console.log(mList);
+		//console.log("Tester List:" + tester)
+		index = $.inArray(ID, mList);
 		if  (index !== -1)
 		{
-			console.log("I love Johnny");
-			console.log(ID);
+			/*console.log("I love Johnny");
+			console.log(ID);*/
 			$(this).addClass("movablepiece");
 
-		}
-				
+		}				
 	});
+
+
+
 
 	
 
@@ -160,7 +168,7 @@ $(document).ready(function()
 
 		//Empty the list before other neighbor coordinates are added
 		nList = [];
-
+		mList = [];
 
 		topNeighbor = blankY - 100;
 		if (topNeighbor >= lessThanZero)
@@ -197,8 +205,60 @@ $(document).ready(function()
 				//return true;
 				//console.log(found);
 			}
+
+			//console.log(neighbor[0],neighbor[1]);
+			findID(neighbor[0],neighbor[1]);
 		}
-		
+
+		console.log(mList);
+	}
+
+
+
+	function findID(x, y)
+	{
+		for (var i = 0; i < puzzlePieces.length; i++)
+		{
+			var iX = $(puzzlePieces[i]).css("left"); 
+			var iY = $(puzzlePieces[i]).css("top");
+			iX = parseInt(iX);
+			iY = parseInt(iY);
+			/*console.log("iX: " + iX);
+			console.log("iY: " + iY);*/
+			if ((iX === x) && (iY === y))
+			{
+				var ID = $(puzzlePieces[i]).attr("id");
+				ID = parseInt(ID);
+				mList.push(ID);
+			}
+		}
+
+		//console.log(ID);
+	}
+
+
+
+
+
+
+	function locateID()
+	{
+
+		for (var i = 0; i < puzzlePieces.length; i++)
+		{
+			
+			puzzlePieces[i].style.backgroundImage = img;
+			puzzlePieces[i].className = "puzzlepiece";
+			puzzlePieces.id = counter;
+			$(puzzlePieces[i]).attr("id", counter);
+			setBackground(i);
+			list[i] = puzzlePieces.id; //Uncomment so that shuffle can take place
+			counter++;
+		}
+
+		$(puzzlePieces[15]).attr("id", 0);
+
+		list[15] = 0; //Uncomment so that shuffle can take place
 	}
 
 
