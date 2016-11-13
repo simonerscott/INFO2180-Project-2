@@ -1,0 +1,18 @@
+﻿Shuffle now working
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Wed Nov 2 23:10:43 2016 -0500
+#
+# On branch gh-pages
+# Your branch is up-to-date with 'origin/gh-pages'.
+#
+# Changes to be committed:
+#	modified:   fifteen.js
+#	modified:   index.html
+#
+# Untracked files:
+#	yrq3nuoe.15b.txt
+#
+
