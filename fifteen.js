@@ -9,10 +9,11 @@ $(document).ready(function()
 	var tempX = "";
 	var tempY = "";
 	var list = [];
+	//var init = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 	var nList = new Object(); //a dictionary of the empty space's neighbor
 	var mList = new Array ();
 	var found = false;
-	var button = $("#control input[type=button]"); // for Shuffle button
+	var button = $("#shufflebutton"); // for Shuffle button
 
 	
 		
@@ -20,7 +21,6 @@ $(document).ready(function()
 	
 	function selectPicture()
 	{
-		//var button = $("#control");
 		var pictureChoice = prompt("Please Enter a Picture Choice by Typing a Letter"+'\n' + "A. Popeye" + '\n' + "B. Tinkerbell" + '\n' 
         + "C. Tom and Jerry"+ '\n' + "D. Tweety Bird"+ '\n');
 
@@ -59,10 +59,9 @@ $(document).ready(function()
 	//for loop to apply background image
 	function backgroundImage(img)
 	{
-
+		
 		for (var i = 0; i < puzzlePieces.length; i++)
 		{
-			
 			puzzlePieces[i].style.backgroundImage = img;
 			puzzlePieces[i].className = "puzzlepiece";
 			puzzlePieces.id = counter;
@@ -81,21 +80,39 @@ $(document).ready(function()
 			
 	// Function created to place puzzle pieces in the correct order
 	function setBackground(i)
-	{		
+	{	
 		puzzlePieces[i].style.left = (i % 4 * 100) +'px';
 		puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px'; 
 		puzzlePieces[i].style.backgroundPosition = '-' + puzzlePieces[i].style.left + ' ' + '-' + puzzlePieces[i].style.top;
     }
     
-	
+
 
 	//Shuffle the puzzles when the suffle button is clicked
 	function shuffle()
 	{
+		var i, j, x;
+		for (i = puzzlePieces.length; i; i--)
+		{
+			j = Math.floor(Math.random() * i);
+			x = puzzlePieces[i - 1];
+			puzzlePieces[i - 1] = puzzlePieces[j];
+			puzzlePieces[j] = x;
+		}
+
+
+		for (var i = 0; i < puzzlePieces.length; i++)
+		{
+			puzzlePieces[i].style.left = (i % 4 * 100) +'px';
+			puzzlePieces[i].style.top = (parseInt(i/4)*100) + 'px'; 
+		}
 
 	}
 
 
+	$("#shufflebutton").click(shuffle);
+
+	
 
 	
 	//To move puzzle piece to empty space
@@ -118,12 +135,13 @@ $(document).ready(function()
 
 	}
 
+
 	
 
 	//Calling the movePiece function on the puzzle pieces
 	puzzlePieces.click(movePiece);
 
-	
+
 
 	//Apply movablepiece class to the valid puzzle pieces 	
 	puzzlePieces.mouseover(function() 
